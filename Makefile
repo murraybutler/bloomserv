@@ -2,7 +2,7 @@
 CC = g++
 LD = g++
 PLAT = arm7
-CXXFLAGS := -O3 -L. -I.
+CXXFLAGS := -O3 -Llib -Iinclude
 LINKFLAGS := -lcityhash 
 #Objects
 OBJS := $(patsubst %.cpp, %.o, $(wildcard *.cpp))
@@ -27,13 +27,13 @@ all: libBloomFilter.so server client # server.o unix-echo-server unix-echo-clien
 
 libBloomFilter.so:BloomFilter.cpp
 	# $(CXX) $(CXXFLAGS) -fPIC -shared $^ -o lib/$(PLAT)/$@ -lcityhash
-	$(CXX) $(CXXFLAGS) -fPIC -shared $^ -o $@ -lcityhash
+	$(CXX) $(CXXFLAGS) -fPIC -shared $^ -o lib/$@ -lcityhash
 
 server: server.cpp
-	$(CXX) $(CCFLAGS) $(CXXFLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CCFLAGS) $(CXXFLAGS) -o bin/$@ $^ $(LIBS)
 
 client: client.cpp
-	$(CXX) $(CCFLAGS) -o $@ $(CXXFLAGS) $^
+	$(CXX) $(CCFLAGS) -o bin/$@ $(CXXFLAGS) $^
 
 #bloomd:
 #	$(CC) $(CXXFLAGS) -o bloomd bloomd.cpp -lBloomFilter
@@ -50,7 +50,7 @@ client: client.cpp
 
  
 clean:
-	rm -rf $(OBJS) $(OJBS:.o=.d) $(PROG) $(OBJS2) libBloomFilter.so client server bloomd
+	rm -rf $(OBJS) $(OJBS:.o=.d) $(PROG) $(OBJS2) lib/* bin/*
 
 # These lines ensure that dependencies are handled automatically.
 #%.d:  %.cc

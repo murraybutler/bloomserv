@@ -1,8 +1,8 @@
 #include <string>
 #include <fstream>
 #include <stdint.h>
-#include "BloomFilter.h"
-#include "city.h"
+#include "include/BloomFilter.h"
+#include "include/city.h"
 
 using namespace std;
 
